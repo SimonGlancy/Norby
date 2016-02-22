@@ -1,16 +1,16 @@
-start = Time.new.sec 
+start = Time.new 
 @alive = true
 
   #def timePassing
     while @alive
-    timeElapsed = Time.now.sec - start
-      if timeElapsed % 1000000 == 0
+    timeElapsed = Time.new - start
+      if timeElapsed % 2 == 0
         puts "tick"
-      elsif timeElapsed % 500000 == 0
+      elsif timeElapsed % 6 == 0 
       	puts "tock"
       
       end
-    break if timeElapsed > 1
+    break if timeElapsed > 5
 
     end
 puts start
