@@ -1,20 +1,20 @@
-Puts "What would you like to call your dragon?"
-name = gets.chomp
-pet = Dragon.new name
-puts "Is it a he or a she?"
-sex = gets.chomp
-
-
 class Dragon
 
   def initialize name, sex
-    @name, @sex, @asleep, @mood, @belly, @intestine, @energy, @alive = name, sex, false, 5, 10, 0, 10, true
+    @name = name
+    @sex = sex
+    @asleep = false
+    @mood = 5
+    @belly = 10
+    @intestine = 0
+    @energy = 10
+    @alive = true
     @birthday = Time.new
 
-    if @sex = 'he'
-      @person = his
-    else
-      @person = 'her'
+    if @sex == 'he'
+      @person = 'his'
+    elsif @sex == 'her'
+      @person == 'her'
     end
     puts "#{@name} is born!"
   end
@@ -44,31 +44,30 @@ class Dragon
 
     if @belly < 0
       puts "#{@name} couldn't find anything to eat, so #{@sex} ate you!"
-      exit
+      exit #right?
     end
 
     if @energy > 0
       @energy -= 1
     else
-      puts "#{@name} cant keep #{@person} eyes open! #{@sex}'s exhausted!"
+      puts "#{@name} cant keep #{@person} eyes open! #{@sex.capitalize}'s exhausted!"
     end
 
     if @intestine >= 8 || @belly <= 3 || @mood <= 2 || @energy < 1
       puts "#{@name} is screaming! What are you going to do?"
-    else
-      puts "What would you like to do?\n Feed | Play | Put to Bed | Walk"
-    end
 
-    @action = gets.chomp.downcase
-    pet.@action
+    # @action = gets.chomp.downcase # Needs more conditionals, @action will after all be a string
+    # pet.@action
+    end
   end
+
 
   def feed
     if @belly <= 10
       puts "#{@name} swallows what you give #{@person} whole!"
       @belly += 5
     else
-      puts "#{@name} is too full, #{@person} might explode!"
+      puts "#{@name} is too full, #{@sex} might explode!"
     end
   end
 
@@ -79,12 +78,15 @@ class Dragon
     if @type == 1
       puts "You tickle #{@name}, #{@sex} giggles and rolls around on the floor."
       @mood +=5
+      @energy -= 2
     elsif @type == 2
       puts "You play catch with #{@name}, #{@sex}'s not very good but has a great time."
       @mood +=5
+      @energy -= 2
     elsif @type == 3
-      puts "You play hide and seek with #{@name}, #{@sex}'s never finds you."
+      puts "You play hide and seek with #{@name}, but #{@sex} never finds you."
       @mood +=5
+      @energy -= 2
   end
 
 
@@ -96,95 +98,36 @@ class Dragon
   def put_to_bed
   #need something clever here using @awake = false and saying until energy is > something it's still asleep adding += 1 to the energy
   end
-
-  def feed
-    puts "You feed #{@name}."
-    @stuff_in_belly = 10
-    passage_of_time
-  end
-
-  def walk
-    puts "You walk #{@name}."
-    @stuff_in_intestine = 0
-    passage_of_time
-  end
-
-  def put_to_bed
-    puts "You put #{@name} to bed."
-    @asleep = true
-    3.times do
-    if @asleep
-      puts "#{@name} snores, filling the room with smoke."
-      passage_of_time
-    elsif @asleep = false
-    puts "#{@name} wakes up slowly."
-    end
-  end
-
-  def toss
-    puts "You toss #{@name} up into the air."
-    puts 'He giggles, which singes your eyebrows.'
-    passage_of_time
-  end
-
-  def rock
-    puts "You rock #{@name} gently."
-    @asleep = true
-    puts 'He briefly dozes off...'
-    passage_of_time
-  if @asleep
-    @asleep = false
-    puts '...but wakes when you stop.'
-  end
+end
 end
 
-# private
-# # "private" means that the methods defined here are
-# # methods internal to the object. (You can feed your
-# # dragon, but you can't ask him whether he's hungry.)
+puts "What would you like to call your dragon?"
+name = gets.chomp
+puts "Is it a he or a she?"
+sex = gets.chomp.downcase
+pet = Dragon.new name, sex
 
-#   def hungry?
-#   # Method names can end with "?".
-#   # Usually, we do this only if the method
-#   # returns true or false, like this:
-#     @stuff_in_belly <= 2
-#   end
 
-#   def poopy?
-#     @stuff_in_intestine >= 8
-#   end
-
-#   def passage_of_time
-#   if @stuff_in_belly > 0
-#   # Move food from belly to intestine.
-#     @stuff_in_belly = @stuff_in_belly - 1
-#     @stuff_in_intestine = @stuff_in_intestine + 1
-#   else # Our dragon is starving!
-#   if @asleep
-#     @asleep = false
-#     puts 'He wakes up suddenly!'
-#   end
-#     puts "#{@name} is starving! In desperation, he ate YOU!"
-#     exit # This quits the program.
-#   end
-
-#   if @stuff_in_intestine >= 10
-#     @stuff_in_intestine = 0
-#   puts "Whoops! #{@name} had an accident..."
-#     end
-#   if hungry?
-#   if @asleep
-#   @asleep = false
-#   puts 'He wakes up suddenly!'
-#   end
-#   puts "#{@name}'s stomach grumbles..."
-#   end
-#   if poopy?
-#   if @asleep
-#   @asleep = false
-#   puts 'He wakes up suddenly!'
-#   end
-#   puts "#{@name} does the potty dance..."
-#   end
-#   end
-#   end
+puts "What would you like to do?\n Feed | Play | Put to Bed | Walk"
+  command = gets.chomp.downcase
+  while command != "exit"
+    if command == "feed"
+    pet.feed
+     command = gets.chomp.downcase
+    elsif command == "walk"
+      pet.walk
+       command = gets.chomp.downcase
+    elsif command == 'play'
+      pet.play
+       command = gets.chomp.downcase
+    elsif command == 'put to bed'
+      pet.put_to_bed
+       command = gets.chomp.downcase
+    elsif command == 'rock'
+      pet.rock
+       command = gets.chomp.downcase
+    else
+      kputs "You can't do that. You can feed, walk, play, put to bed #{name} or 'exit' the program."
+       command = gets.chomp.downcase
+    end
+  end
