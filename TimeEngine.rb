@@ -4,13 +4,13 @@ start = Time.new
   #def timePassing
     while @alive
     timeElapsed = Time.new - start
-      if timeElapsed % 2 == 0
-        puts "tick"
-      elsif timeElapsed % 6 == 0 
-      	puts "tock"
+      if timeElapsed % 10 == 0
+        puts "one day passes"
+      elsif timeElapsed % 3 == 0 
+      	puts timeElapsed
       
       end
-    break if timeElapsed > 5
+    break if timeElapsed > 100
 
     end
 puts start
