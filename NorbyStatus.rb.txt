@@ -1,0 +1,9 @@
+def moodBar
+
+mood = ["","","","","","","","","",""]
+
+mood.each_with_index do |x|
+	if i < @mood -1
+	mood[i] = "N"
+	end
+end
